@@ -14,7 +14,7 @@ const initdb = async () =>
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
-  console.log("opening msdosDB");
+  console.info("opening msdosDB");
   const msdosDb = await openDB("msdos", 1);
   const text = msdosDb.transaction("msdos", "readwrite");
   const store = text.objectStore("msdos");
@@ -23,6 +23,14 @@ export const putDb = async (content) => {
   console.warn(result);
 };
 // TODO: Add logic for a method that gets all the content from the database
-export const getDb = async () => {};
+export const getDb = async () => {
+  console.info("loading from masdosDB");
+  const msdosDb = await openDB("msdos", 1);
+  const text = msdosDb.transaction("msdos", "readonly");
+  const store = text.objectStore("msdos");
+  const request = store.getAll();
+  const result = await request;
+  console.warn(result);
+};
 
 initdb();
